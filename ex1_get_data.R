@@ -7,8 +7,8 @@ getData <- function( datafile='./household_power_consumption.txt' ) {
   if (!file.exists('household_power_consumption.txt')) {
     
     # download the zip file and unzip
-    file.url<-'https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip'
-    download.file(file.url,destfile='./household_power_consumption.zip')
+    URL <-'https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip'
+    download.file(URL,destfile='./household_power_consumption.zip')
     unzip('./household_power_consumption.zip',overwrite=TRUE)
     
   }
