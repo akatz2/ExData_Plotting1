@@ -1,3 +1,5 @@
+source("ex1_get_data.R")
+
 # Plots a 2x2 grid of plots of:
 #   top left     - global active power time series
 #   bottom left  - plot2
@@ -36,27 +38,3 @@ plot( mydata$DateTime, mydata$Global_reactive_power, type="l", xlab="datetime", 
 
 
 dev.off()
-
-
-# function to read the data from the datafile and return the data from 2/1 - 2/2/2007
-# adds a DateTime column that stores the full time field
-getData <- function( datafile='./household_power_consumption.txt' ) {
-  
-  # reads in the data file and ensures that columns are not all converted to factors (as.is=TRUE)
-  df <- read.table(datafile, header=TRUE, sep=";", na.strings = c("?"), 
-                   colClasses = c("character", "character", "numeric","numeric","numeric","numeric","numeric","numeric","numeric"))
-  
-  # add a time column for granularity
-  df$DateTime <- strptime(paste(df$Date, df$Time, sep=" "),format="%d/%m/%Y %H:%M:%S")
-  
-  # fist column is a date
-  df$Date <- as.Date(df$Date, format="%d/%m/%Y")
-  
-  # filter by dates
-  date_lb = as.Date("2007-2-1")
-  date_ub = as.Date("2007-2-2")
-  
-  mydata <- df[ (df$Date >= date_lb & df$Date <= date_ub), ]
-  
-  return(mydata)
-}
